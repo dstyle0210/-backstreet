@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.xdomainajax/0.11/jquery.xdomainajax.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
+
+</head>
+<body>
+<!--
+http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31073719&colorOptionValueCode=844656-003&displayNo=NK1A49A01A01
+-->
+<div id="loc">
+    <input type="text" name="" id="location" value=""><button type="button" onclick="getLoca()">추출</button>
+    <input type="text" name="" id="code">
+    <input type="text" name="" id="style">
+</div>
+
+<input type="text" name="" id="location" value=""><button type="button" onclick="getLoca()">추출</button>
+<div>
+    <input type="text" name="" id="nk_code">
+    <input type="text" name="" id="nk_style">
+</div>
+<button type="button" onclick="getWarehouse();">확인</button>
+<h1></h1>
+<ul id="test">
+</ul>
+<script type="text/javascript">
+$(function(){
+
+});
+var loca;
+
+var chart = [];
+var count = 0;
+
+
+function chartReset(){
+    chart = [];
+    for(i=0;i<17;i++){
+        chart.push({
+            size:220+(5*i),
+            online:0,
+            store_1000000036:0, // 강남
+            store_1000000021:0, // 명동
+            store_0006030701:0, // 코엑스
+            store_0000116150:0, // 여의도 IFC
+            store_0000153544:0, // 압구정
+            store_0000116160:0, // 롯데월드몰
+            store_0000116123:0, // 올림픽공원
+            store_0000158541:0, // 타임스퀘어
+            code:null
+        });
+    };
+};
+chartReset();
+console.log(chart);
+
+function scripToRes(resText){
+    // console.log(resText);
+    var rTxt = "";
+    try{
+        rTxt = (resText).replace("<html><head/><body>", "").replace("</body></html>", "");
+        return rTxt;
+    }catch(err) {
+        console.log(err);
+    };
+    return null;
+}
+function getLoca(){
+    loca = getUrlParams( $("#location").val() );
+    $("#nk_code").val(loca.goodsNo);
+    $("#nk_style").val(loca.colorOptionValueCode);
+};
+
+function getWarehouse(){
+    chartReset();
+    loca.goodsNo = $("#nk_code").val();
+    loca.colorOptionValueCode = $("#nk_style").val();
+    loca.style = ( $("#nk_style").val() ).split("-").join("");
+
+    console.log(loca);
+
+
+
+    $.ajax({
+        url: "http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo="+loca.goodsNo+"&colorOptionValueCode="+loca.colorOptionValueCode,
+        type:"GET",
+        dataType: 'xml',
+        success: function(response) {
+            // console.log(response.responseText);
+            var textResults = response.responseText.match(/<title[^>]*>([^<]+)<\/title>/)[1];
+            textResults = textResults.replace("Nike 나이키닷컴","");
+            $("h1").html(textResults+"");
+            console.log( textResults );
+        }.bind(this),
+        error: function(xhr, status, err) {
+            console.log(err);
+        }.bind(this)
+    });
+
+    count = 0;
+    var url = "http://lecs.nike.co.kr/cart/getGoodsOptionInfo.lecs?goodsNo="+loca.goodsNo+"&itemColor="+loca.colorOptionValueCode+"&goodsSalePrice=0&source=&orderNo=&orderDetailSn=";
+    $.ajax({
+        url: url,
+        type:"GET",
+        success: function(response) {
+            count++;
+            var regex = "/<(.|\n)*?>/";
+            console.log( response.responseText );
+            var res = jQuery.parseJSON( scripToRes(response.responseText) );
+            $.each(res.etcInfo,function(idx,item){
+                var s = item.split("*|*");
+                var data = _.find(chart, function(obj){ return (obj.size == s[0]) });
+                data.online = s[1];
+                data.code = s[2];
+            });
+            result();
+        }.bind(this),
+        error: function(xhr, status, err) {
+            console.log(err);
+        }.bind(this)
+    });
+    // 예전 재고확인 프로세스
+    /*
+    _.each(chart,function(item){
+        $.ajax({
+            url:"http://www.nike.co.kr/goods/getNikeStockApi.lecs?confirmCorp=%2002"+loca.style+"%20%20"+item.size,
+            type:"GET",
+            success:function(ss){
+                count++;
+                // console.log(item.size);
+                var offline = (scripToRes(ss.responseText)).split("|");
+                _.each(offline,function(storeRes){
+                    var STD = (storeRes.split("*"));
+                    item["store_"+STD[0]] = STD[1];
+                });
+                result();
+            }
+        });
+    });
+     */
+    _.each(chart,function(item){
+        $.ajax({
+            url:"http://www.nike.co.kr/goods/getNikeStockApi.lecs?shopInvRsvPsbYn=Y&confirmCorp=+02"+loca.style+"++"+item.size,
+            type:"GET",
+            success:function(ss){
+                count++;
+                var res = jQuery.parseJSON( scripToRes(ss.responseText) );
+
+                _.each(res.storeList,function(STD){
+                    item["store_"+STD.corpShopNo] = STD.qty;
+                });
+                result();
+                console.log(res);
+                /*
+                // console.log(item.size);
+                var offline = (scripToRes(ss.responseText)).split("|");
+                _.each(offline,function(storeRes){
+                    var STD = (storeRes.split("*"));
+                    item["store_"+STD[0]] = STD[1];
+                });
+
+                */
+            }.bind(this),
+            error: function(xhr, status, err) {
+                count++;
+                result();
+                console.log(err);
+            }.bind(this),
+            timeout: 1000
+        });
+    });
+
+    // 재고예약
+    // http://www.nike.co.kr/goods/getNikeStockApi.lecs?shopInvRsvPsbYn=Y&confirmCorp=+02844656003++280
+
+
+
+}
+
+
+function result(){
+    // console.log(count);
+    if(count<12){return;};
+    $("#test").html("");
+    var table = $("<table class='table table-hover'></table>");
+    var thead = $("<thead>" +
+            "<tr>" +
+            "<th>사이즈</th>" +
+            "<th>온라인</th>" +
+            "<th>강남</th>" +
+            "<th>명동</th>" +
+            "<th>코엑스</th>" +
+            "<th>여의도IFC</th>" +
+            "<th>압구정</th>" +
+            "<th>롯데월드</th>" +
+            "<th>올림픽공원</th>" +
+            "<th>타임스퀘어</th>" +
+            "</tr>" +
+            "</thead>");
+    table.append(thead);
+
+    var tbody = $("<tbody></tbody>");
+    _.each(chart,function(info,idx){
+        var tr = $("<tr></tr>");
+        tr.append("<td>"+info.size+"</td>");
+        tr.append("<td>"+getItemsStr(info.online)+"</td>");
+        tr.append("<td>"+getItemsStr(info.store_1000000036)+"</td>");
+        tr.append("<td>"+getItemsStr(info.store_1000000021)+"</td>");
+        tr.append("<td>"+getItemsStr(info.store_0006030701)+"</td>");
+        tr.append("<td>"+getItemsStr(info.store_0000116150)+"</td>");
+        tr.append("<td>"+getItemsStr(info.store_0000153544)+"</td>");
+        tr.append("<td>"+getItemsStr(info.store_0000116160)+"</td>");
+        tr.append("<td>"+getItemsStr(info.store_0000116123)+"</td>");
+        tr.append("<td>"+getItemsStr(info.store_0000158541)+"</td>");
+        tbody.append(tr);
+    });
+    table.append(tbody);
+    $("#test").append(table);
+
+
+    console.log(chart);
+};
+
+function getItemsStr(rows){
+    return (rows=="0") ? "-" : rows+"족";
+}
+
+
+
+function getUrlParams(loca) {
+    var params = {};
+    loca.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) { params[key] = value; });
+    return params;
+}
+</script>
+</body>
+</html>
