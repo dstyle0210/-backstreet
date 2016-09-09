@@ -24,6 +24,8 @@ todo 오프라인 재고테이블 시간차로 로딩?
 todo 타임아웃일때 내용변경.
 todo 0일때는 별도 적용 , 갯수가 있으면, 컬러적용?
 todo 낫스탁적용 : 온라인에서 실제 적용 가능한 범위만 추출.
+todo 로딩대기?
+
 -->
 <style>
 .wrap{padding:20px 0;margin:0 auto;width:80%;}
@@ -176,12 +178,11 @@ todo 낫스탁적용 : 온라인에서 실제 적용 가능한 범위만 추출.
                 });
 
                 var url = "http://www.nike.co.kr/goods/getNikeStockApi.lecs?shopInvRsvPsbYn=Y&confirmCorp=+02"+locVm.styleArray.join("")+"++"+size+"&random="+(Math.floor(Math.random()*100));
-                $.ajax({
+                var ajax = $.ajax({
                     url:url,
                     type:"GET",
                     success:function(ss){
                         var res = jQuery.parseJSON( scripToRes(ss.responseText) );
-
                         _.each(res.storeList,function(STD){
                             store["store_"+STD.corpShopNo] = STD.qty;
                         });
@@ -192,6 +193,9 @@ todo 낫스탁적용 : 온라인에서 실제 적용 가능한 범위만 추출.
                     timeout: 1000,
                     headers: {Connection: close}
                 });
+                setTimeout(function(){
+                    ajax.abort();
+                },1100);
             },
             getMe:function(me){
 
