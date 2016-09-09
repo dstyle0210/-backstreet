@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<button onclick="btn();">로딩(10개)</button>
+<style>div img{width:50px;height:autol;}</style>
+<div id="t"></div>
+<script>
+    var code = 0;
+    function btn(){
+        for(i=0;i<100;i++){
+            call(code);
+            code = code+1;
+        };
+    };
+
+    function call(idx){
+        var num = "";
+        if(idx<10){
+            num = "00"+idx;
+        }else if(idx<100){
+            num = "0"+idx;
+        }else{
+            num = idx;
+        };
+        // 31038294
+        // NK31066059
+        // NK00068163
+        // http://image.nike.co.kr/goods/31/06/60/54/834272_COL_834272-103_180.png
+        // http://image.nike.co.kr/goods/31/03/19/37/305050_COL_305050-106_1_750.png
+        // http://image.nike.co.kr/goods/31/00/48/80/314996_COL_314996-402_1_750.png
+        // http://image.nike.co.kr/goods/31/06/13/56/819583_COL_819583-105_180.png
+        // http://image.nike.co.kr/goods/31/06/78/96/838639_COL_838639-001_1_750.png
+        // http://image.nike.co.kr/goods/00/06/82/14/308497_COL_308497-106_180.png
+        var code = "NK31007901";
+        var style = "845037";
+        var codeNum = (code).split("NK")[1];
+        var urlCode = codeNum.slice(0,2)+"/"+codeNum.slice(2,4)+"/"+codeNum.slice(4,6)+"/"+codeNum.slice(6,8);
+        var url = "http://images.nike.com/is/image/DotCom/PDP_HERO/-"+style+"_"+num+"_A_PREM.jpg?wid=50&hei=50&fmt=jpg&qlt=20";
+        // http://images.nike.com/is/image/DotCom/PDP_HERO/-768878_107_A_PREM.jpg?wid=50&hei=50&fmt=jpg&qlt=50
+        $("#t").append("<a href='img_en.html?style="+codeNum+"_"+style+"_"+num+"'><img src='"+url+"' onerror='$(this).parent().hide()' /></a>");
+    };
+</script>
+</body>
+</html>

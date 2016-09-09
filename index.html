@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>프로젝트 뒷골목</title>
+    <meta http-equiv='cache-control' content='no-cache' />
+    <meta http-equiv='expires' content='0' />
+    <meta http-equiv='pragma' content='no-cache' />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -12,13 +15,35 @@
     <script src="lib/dsPack/jquery.dsPack.js"></script>
 </head>
 <body>
+<!--
+todo 소스 최적화 - scss 등
+todo 장바구니 담기 기능
+todo 온라인 재고 확인
+todo 재고 테이블 별도로 적용.
+todo 오프라인 재고테이블 시간차로 로딩?
+todo 타임아웃일때 내용변경.
+todo 0일때는 별도 적용 , 갯수가 있으면, 컬러적용?
+todo 낫스탁적용 : 온라인에서 실제 적용 가능한 범위만 추출.
+-->
 <style>
 .wrap{padding:20px 0;margin:0 auto;width:80%;}
-.wrap .infoListWrap{position:relative;padding-left:20%;width:100%;overflow:hidden;}
-.wrap .infoListWrap .info{position:absolute;top:0;left:0;width:20%;}
+.wrap .infoListWrap{position:relative;width:100%;overflow:hidden;}
+.wrap .infoListWrap .info{float:left;width:20%;}
 .wrap .infoListWrap .info img{width:100%;height:auto;}
-.wrap .infoListWrap .list{float:right;width:95%;}
+.wrap .infoListWrap .info li{font-size:12px;cursor:pointer;}
+.wrap .infoListWrap .list{float:right;width:80%;}
 </style>
+<button onclick="initData('NK31073467','414962-104');">업템포</button>
+<button onclick="initData('NK31051997','789695-102');">에어맥스제로(올흰)</button>
+<button onclick="initData('NK31067769','847125-600');">에어맥스제로(도쿄)</button>
+<button onclick="initData('NK31061356','819583-701');">카이리2(호주)</button>
+<button onclick="initData('NK31029736','575420-400');">폼포짓원PRM(올림픽)</button>
+<script>
+    function initData(nk,style){
+        locVm.code = nk;
+        locVm.styleCode = style;
+    };
+</script>
 <section class="wrap">
     <section id="loc">
         <input type="text" id="location" v-model="location" v-on:keyup.enter="init" v-on:blur="init" value="" />
@@ -32,6 +57,11 @@
             <p>{{price}}</p>
             <img src="{{image}}" alt="{{heading}}" width="200" height="200" />
             <button v-on:click="load">다시 로드</button>
+            <ul>
+                <li v-for="other in otherColors" onclick="initData(locVm.code,'{{other.code}}')">
+                    <img src="http://image.nike.co.kr/goods/31/06/13/56/{{other.style}}_COL_{{other.style}}-{{other.color}}_1_50.png" alt="" style="width:50px;height:auto;" />
+                    {{other.colorName}}</li>
+            </ul>
         </section>
         <section id="list" class="list">
             <table class="table">
@@ -51,16 +81,16 @@
                 </thead>
                 <tbody>
                     <tr v-for="item in items">
-                        <td>{{item.size}}</td>
-                        <td>{{item.online}}</td>
-                        <td>{{item.store_1000000036}}</td>
-                        <td>{{item.store_1000000021}}</td>
-                        <td>{{item.store_0006030701}}</td>
-                        <td>{{item.store_0000116150}}</td>
-                        <td>{{item.store_0000153544}}</td>
-                        <td>{{item.store_0000116160}}</td>
-                        <td>{{item.store_0000116123}}</td>
-                        <td>{{item.store_0000158541}}</td>
+                        <td>{{item.size}} <button v-on:click="getMe(this)">가져오기</button><button v-on:click="getReal(this)">실제정보</button></td>
+                        <td>{{item.online}}족</td>
+                        <td>{{item.store_1000000036}}<span v-if="item.store_1000000036 != 0">족</span></td>
+                        <td>{{item.store_1000000021}}<span v-if="item.store_1000000021 != 0">족</span></td>
+                        <td>{{item.store_0006030701}}<span v-if="item.store_0006030701 != 0">족</span></td>
+                        <td>{{item.store_0000116150}}<span v-if="item.store_0000116150 != 0">족</span></td>
+                        <td>{{item.store_0000153544}}<span v-if="item.store_0000153544 != 0">족</span></td>
+                        <td>{{item.store_0000116160}}<span v-if="item.store_0000116160 != 0">족</span></td>
+                        <td>{{item.store_0000116123}}<span v-if="item.store_0000116123 != 0">족</span></td>
+                        <td>{{item.store_0000158541}}<span v-if="item.store_0000158541 != 0">족</span></td>
                     </tr>
                 </tbody>
             </table>
@@ -68,7 +98,9 @@
     </div>
 </section>
 <script>
-    // http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31073719&colorOptionValueCode=844656-003&displayNo=NK1A49A01A01
+
+    //
+    // http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31066093&colorOptionValueCode=824463-606&displayNo=NK1A49A01A01
     var listVm = new Vue({
         el:"#list",
         data:{
@@ -90,7 +122,8 @@
                     });
                 };
                 return readyData
-            })()
+            })(),
+            stores:["1000000036","1000000021","0006030701","0000116150","0000153544","0000116160","0000116123","0000158541"]
         },
         methods:{
             resetData:function(){
@@ -113,15 +146,19 @@
                 this.items = readyData;
             },
             getOnline:function(){
-                var me = this;
-                var url = "http://lecs.nike.co.kr/cart/getGoodsOptionInfo.lecs?goodsNo="+locVm.code+"&itemColor="+locVm.styleCode+"&goodsSalePrice=0&source=&orderNo=&orderDetailSn=";
+                _.each(listVm.items,function(item){
+                    item.online = 0;
+                });
+                var url = "http://lecs.nike.co.kr/cart/getGoodsOptionInfo.lecs?goodsNo="+locVm.code+"&itemColor="+locVm.styleCode+"&goodsSalePrice=0&source=&orderNo=&orderDetailSn="+"&random="+(Math.floor(Math.random()*100));
                 $.ajax({
                     url: url,
                     type:"GET",
+                    cache:false,
                     success: function(response) {
                         var res = jQuery.parseJSON( scripToRes(response.responseText) );
                         $.each(res.etcInfo,function(idx,item){
                             var s = item.split("*|*");
+
                             var data = _.find(listVm.items, function(obj){ return (obj.size == s[0]) });
                             data.online = s[1];
                             data.code = s[2];
@@ -133,22 +170,36 @@
                 });
             },
             getOffline:function(size){
-                var url = "http://www.nike.co.kr/goods/getNikeStockApi.lecs?shopInvRsvPsbYn=Y&confirmCorp=+02"+locVm.styleArray.join("")+"++"+size;
+                var store = _.find(listVm.items, function(obj){ return (obj.size == size ) });
+                _.each(listVm.stores,function(storeCode){
+                    store["store_"+storeCode] = "로딩중";
+                });
+
+                var url = "http://www.nike.co.kr/goods/getNikeStockApi.lecs?shopInvRsvPsbYn=Y&confirmCorp=+02"+locVm.styleArray.join("")+"++"+size+"&random="+(Math.floor(Math.random()*100));
                 $.ajax({
                     url:url,
                     type:"GET",
                     success:function(ss){
                         var res = jQuery.parseJSON( scripToRes(ss.responseText) );
+
                         _.each(res.storeList,function(STD){
-                            var store = _.find(listVm.items, function(obj){ return (obj.size == size ) });
                             store["store_"+STD.corpShopNo] = STD.qty;
                         });
                     }.bind(this),
                     error: function(xhr, status, err) {
                         console.log(err);
                     }.bind(this),
-                    timeout: 1000
+                    timeout: 1000,
+                    headers: {Connection: close}
                 });
+            },
+            getMe:function(me){
+
+                this.getOffline(me.item.size);
+            },
+            getReal:function(me){
+                var url = "http://www.nike.co.kr/goods/getNikeStockApi.lecs?shopInvRsvPsbYn=Y&confirmCorp=+02"+locVm.styleArray.join("")+"++"+me.item.size;
+                window.open(url);
             }
         }
     });
@@ -169,8 +220,11 @@
                 this.getStyleArray();
                 infoVm.load();
                 listVm.getOnline();
-                _.each(listVm.items,function(item){
-                    listVm.getOffline(item.size);
+                _.each(listVm.items,function(item,idx){
+                    setTimeout(function(){
+
+                        listVm.getOffline(item.size);
+                    },(1000+(idx*1000)));
                 });
 
             }
@@ -178,7 +232,7 @@
     });
     var infoVm = new Vue({
         el:"#info",
-        data:{heading:"",price:"",image:""},
+        data:{heading:"",price:"",image:"",otherColors:[]},
         methods:{
             load:function(){
                 var me = this;
@@ -186,7 +240,7 @@
 
                 var codeNum = (locVm.code).split("NK")[1];
                 var urlCode = codeNum.slice(0,2)+"/"+codeNum.slice(2,4)+"/"+codeNum.slice(4,6)+"/"+codeNum.slice(6,8);
-                me.image = "http://image.nike.co.kr/goods/"+urlCode+"/"+locVm.styleArray[0]+"_COL_"+locVm.styleArray[0]+"-"+locVm.styleArray[1]+"_1_750.png";
+                me.image = "http://image.nike.co.kr/goods/"+urlCode+"/"+locVm.styleArray[0]+"_COL_"+locVm.styleArray[0]+"-"+locVm.styleArray[1]+"_5_750.png";
 
                 $.ajax({
                     url: "http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo="+locVm.code+"&colorOptionValueCode="+locVm.style,
@@ -199,7 +253,27 @@
                         priceText = priceText.replace(/&#xd;/gi,"");
                         me.heading = textResults+"";
                         me.price = priceText+"";
-                    }.bind(this),
+
+
+                        var otherColorSet = response.responseText.match(/<span class="opt"[^>]*>[\s\n]*[^<]+<span class="optcode"[^>]*>[^<]+<\/span>/gi);
+                        cArr = [];
+                        _.each(otherColorSet,function(cText){
+                            cText = cText.replace(/&#xd;/gi,"").replace(/[\s\n]+/gi,"");
+                            var cData = {
+                                colorName:(cText.split('<spanclass="optcode">')[0]).replace('<spanclass="opt">',""),
+                                code:(cText.split('<spanclass="optcode">')[1]).replace("</span>","")
+                            };
+                            cData.style = cData.code.split("-")[0];
+                            cData.color = cData.code.split("-")[1];
+                            cArr.push(cData);
+                        });
+                        console.log(cArr);
+                        this.otherColors = cArr;
+
+
+
+
+                        }.bind(this),
                     error: function(xhr, status, err) {
                         console.log(err);
                     }.bind(this)
