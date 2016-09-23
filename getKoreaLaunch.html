@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.xdomainajax/0.11/jquery.xdomainajax.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
+</head>
+<body>
+<button onclick="loadKoreaLaunch(0);">시작</button>
+<button onclick="ingNull();">중지</button>
+<ul id="luanch">
+    <li v-for="item in luanchs">
+        <h2>{{item.title}}</h2>
+        <p>{{item.price}}</p>
+        <p>{{item.date}}</p>
+        <p>{{item.color}}</p>
+        <p>{{item.image}}</p>
+        <p>{{item.url}}</p>
+    </li>
+</ul>
+<script type="text/javascript">
+var ing = true;
+function ingNull(){ing = false;}
+var errorCount = false;
+var eng = ["A","B","C","D","E"];
+var engIdx = 0;
+var callNum = 0;
+var launch = "http://www.nike.co.kr/display/displayShop.lecs?displayNo=NK1A40";
+var url = "";
+
+function loadKoreaLaunch(num){
+    if(!ing) return;
+    engIdx = (100==num) ? engIdx+1 : engIdx;
+    num = (100==num) ? 0 : num;
+    var textNum = (num<10) ? "0"+num : ""+num;
+    if(engIdx==1 && num==56) return;
+    if((eng[engIdx]==undefined)) return;
+
+    url = launch+eng[engIdx]+textNum;
+    console.log(url);
+    $.ajax({
+        url:url,
+        type:"GET",
+        dataType: 'xml',
+        success:function(response){
+            var o = {};
+            var res = response.responseText.replace(/&#xd;/gi,"");
+            // 타이틀 구하기
+            o.title = res.match(/<h2 class="lcbv_pro_title"[^>]*>[\s\n]*<p>([^<]+)<\/p>/);
+            if(o.title==null){
+                o.title = "상품없음";
+            }else{
+                o.title = $.trim( o.title[1] );
+            };
+            // 가격구하기
+            o.price = res.match(/<div class="lcbv_pro_price"[^>]*>[\s\n]*([^<]+)/);
+            if(o.price==null){
+                o.price = "";
+            }else{
+                o.price = $.trim( o.price[1] );
+            };
+
+            // 출시정보 구하기
+            o.date = res.match(/<div class="lcbv_pro_desc"[^>]*>[\s\n]*([^<]+)/);
+            if(o.date==null){
+                o.date = "";
+            }else{
+                o.date = $.trim( o.date[1] );
+            };
+
+            // 색상 구하기
+            o.color = res.match(/<div class="lcbv_pro_info"[^>]*>[\s\n]*([^<]+)/);
+            if(o.color==null){
+                o.color = "";
+            }else{
+                o.color = $.trim( o.color[1] );
+            };
+
+            // URL 구하기
+            o.url = url;
+
+            // console.log(o);
+            callNum = num;
+            errorCount = false;
+            initGGSheet(o);
+        }.bind(this),
+        error: function(xhr, status, err) {
+            if(!errorCount){
+                console.log(url+"::에러발생 다시 시작합니다.");
+                errorCount = true;
+                loadKoreaLaunch(callNum);
+            }else{
+                console.log(url+"::은 오류로 저장합니다.");
+                initGGSheet({
+                    title:"AJAX 오류",
+                    url:url
+                });
+            };
+        }.bind(this),
+        headers: {Connection: close}
+    });
+};
+function initGGSheet(data){
+    if(!ing) return;
+    console.log(data);
+    $.ajax({
+        url: "https://script.google.com/macros/s/AKfycbylx6NU5VA1i_mxckZULuvCtMk-kkQOvL-hivZpyAUsbM9EKr8/exec",
+        data: data,
+        type: "POST",
+        success: function(response) {
+            console.log(url+" :: 저장 성공");
+            callNum = callNum+1;
+            loadKoreaLaunch(callNum);
+        }.bind(this),
+        error: function(xhr, status, err) {
+            console.log(err);
+            // 오류시 사용
+        }.bind(this)
+    });
+}
+</script>
+
+</body>
+</html>
+
+http://www.nike.co.kr/display/displayShop.lecs?displayNo=NK1A41A06

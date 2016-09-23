@@ -40,6 +40,9 @@ todo 로딩대기?
 <button onclick="initData('NK31067769','847125-600');">에어맥스제로(도쿄)</button>
 <button onclick="initData('NK31061356','819583-701');">카이리2(호주)</button>
 <button onclick="initData('NK31029736','575420-400');">폼포짓원PRM(올림픽)</button>
+<button onclick="initData('NK00065514','440892-017');">에어조던5레트로GG</button>
+<button onclick="initData('NK31041903','716890-009');">나이키SB 블레이저x슈프림</button>
+<button onclick="initData('NK31077865','819686-400');">삭다트 네이비</button>
 <script>
     function initData(nk,style){
         locVm.code = nk;
@@ -171,13 +174,14 @@ todo 로딩대기?
                     }.bind(this)
                 });
             },
-            getOffline:function(size){
+            getOffline:function(size,nextSize){
+                var This = this;
                 var store = _.find(listVm.items, function(obj){ return (obj.size == size ) });
                 _.each(listVm.stores,function(storeCode){
                     store["store_"+storeCode] = "로딩중";
                 });
-
                 var url = "http://www.nike.co.kr/goods/getNikeStockApi.lecs?shopInvRsvPsbYn=Y&confirmCorp=+02"+locVm.styleArray.join("")+"++"+size+"&random="+(Math.floor(Math.random()*100));
+                console.log("getSize:"+size+",next:"+nextSize);
                 var ajax = $.ajax({
                     url:url,
                     type:"GET",
@@ -186,19 +190,25 @@ todo 로딩대기?
                         _.each(res.storeList,function(STD){
                             store["store_"+STD.corpShopNo] = STD.qty;
                         });
+                        if(nextSize && nextSize<300){
+                            This.getOffline(nextSize,nextSize+5);
+                        };
                     }.bind(this),
                     error: function(xhr, status, err) {
                         console.log(err);
+                        ajax.abort();
+                        if(nextSize && nextSize<300){
+                            This.getOffline(nextSize,nextSize+5);
+                        };
                     }.bind(this),
                     timeout: 1000,
                     headers: {Connection: close}
                 });
                 setTimeout(function(){
-                    ajax.abort();
+
                 },1100);
             },
             getMe:function(me){
-
                 this.getOffline(me.item.size);
             },
             getReal:function(me){
@@ -224,13 +234,7 @@ todo 로딩대기?
                 this.getStyleArray();
                 infoVm.load();
                 listVm.getOnline();
-                _.each(listVm.items,function(item,idx){
-                    setTimeout(function(){
-
-                        listVm.getOffline(item.size);
-                    },(1000+(idx*1000)));
-                });
-
+                listVm.getOffline(220,225);
             }
         }
     });

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content="text/html; charset=UTF-8">
+    <title>Test</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.xdomainajax/0.11/jquery.xdomainajax.js"></script>
+    <script src="xml2json.js"></script>
+</head>
+<body>
+<pre id="result"></pre>
+<button onclick="loop();">start</button>
+<button onclick="stop();">stop</button>
+<script type="text/javascript">
+    var used = false;
+    // 대표사이트 데이터 넣기
+    function callSiteFormBox(no,name,NOs){
+        console.log(NOs);
+        $.ajax({
+            url: "https://script.google.com/macros/s/AKfycbxVPxSiiB_RUyPMdXP6P5rmjp-hIlfoQkVr6DNNPDw1C7Z8zAo/exec",
+            data: {no:no,name:name},
+            type: "POST",
+            success: function(response) {
+                console.log("성공");
+                call(NOs);
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.log(err);
+                // 오류시 사용
+            }.bind(this)
+        });
+    };
+
+    function call(NO){
+        if(used){
+            $.ajax({
+                url: 'http://m.nike.co.kr/mobile/goods/showGoodsDetail.lecs?goodsNo=NK'+NO,
+                dataType: "xml",
+                type: 'GET',
+                success: function(res) {
+
+                    if((no_hook+2000) < NO){
+                        $("#result").append("<span>끝</span><br />");
+                        return;
+                    }
+
+                    var title = "";
+                    $(res.responseText).map(function(key,val){
+                        if("og:title" == $(this).attr("property")){
+                            title = $(this).attr("content");
+                            $("#result").append("<span>NK"+ NO+","+ title +"</span><br />");
+                            var NOs = NO+1;
+                            callSiteFormBox(NO,title,NOs);
+                        };
+                    });
+                    if(title == ""){
+                        $("#result").append("<span>NK"+ NO+","+ title +"</span><br />");
+                        NO = NO+1;
+                        setTimeout(function(){
+                            call(NO);
+                        },1000);
+                    };
+                },
+                error:function(res){
+                    console.log(res);
+                }
+            });
+        };
+    };
+    // NK31060747
+
+
+    // NK31058563
+
+
+    var no_hook = 31080377;
+    function loop(){
+        used = true;
+        call(no_hook);
+    };
+    function stop(){
+        used = false;
+    }
+</script>
+</body>
+</html>
