@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<input type="text" name="" id="style" /><span id="ttt"></span>
+<button onclick="callLoadImage();">로딩시작</button>
+<button onclick="callClose();">로딩정지</button>
+<style>div img{width:50px;height:autol;}</style>
+<div id="t"></div>
+<script>
+    var style = "";
+    var loading = true;
+    function appendImage(num){
+        if(999<num || !loading) return;
+        var textNum = (num<100) ? ((num<10) ? "00"+num : "0"+num) : ""+num;
+        $("#ttt").html(textNum);
+        var url = "http://images.nike.com/is/image/DotCom/PDP_HERO/-"+style+"_"+textNum+"_A_PREM.jpg?wid=50&hei=50&fmt=jpg&qlt=20";
+        $("#t").append("<a href='img_en.html?style="+style+"_"+textNum+"'><img src='"+url+"' onerror='$(this).parent().hide()' onload='appendImage("+(num+1)+");' /></a>");
+    };
+    function callLoadImage(){
+        style = $("#style").val();
+        appendImage(0);
+    };
+    function callClose(){
+        loading = false;
+    }
+</script>
+</body>
+</html>
