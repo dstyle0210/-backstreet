@@ -1,0 +1,42 @@
+/*
+	 * 사이즈선택시 단품정보 델리미터별 값 설명 사이즈 *|* 컬러옵션코드 *|* 컬러옵션값코드 *|* 컬러옵션텍스트명 *|*
+	 * 재고수량 *|* 아이템넘버 *|* 아이템판매상태*|*아이템가격(옵션할인적용)
+	 * ex) S*|*COL*|*137*|*BLACK CHECK*|*50*|*MJ0001432*|*10*|*30000
+	 *
+	 * 나이키 모바일 추가 : 2012.06.04
+	 * 마지막에 최소 주문 수량 값이 추가됨
+	 * 사이즈선택시 단품정보 델리미터별 값 설명  :
+	 * 사이즈 *|* 컬러옵션코드 *|* 컬러옵션값코드 *|* 컬러옵션텍스트명 *|*
+	 * 재고수량 *|* 아이템넘버 *|* 아이템판매상태*|*아이템가격(옵션할인적용)*|*최소 주문수량
+	 * ex) S*|*COL*|*137*|*BLACK CHECK*|*50*|*MJ0001432*|*10*|*30000*|*2
+	 */
+
+
+
+
+goods_json = {"flag":"0","title":"나이키 에어 폼포짓 프로","price":269000,"sale":269000,"mark":4.0,"review":96,"itemYN":"Y","reserveDate":"","optionValueCode":"624041-604","doublePriceMarkYn":"N","purchaseQuantityLimitYn":"Y","maximumLimitQuantity":1,"deliveryExpensePolicyNo":0,"ea":{"a":["1","2","3","4","5","6","7","8","9","10"]},"items":{"item":[
+
+
+
+
+{"code":"스타일값(624041)","color":"유니바시티 레드/블랙-유니바시티 레드","optionValueCode":"624041-604","size":{"a":
+
+
+
+[
+
+"250*|*COL*|*624041-604*|*유니바시티 레드/블랙-유니바시티 레드*|*1*|*NK31042923063*|*10*|*0*|*0",
+"275*|*COL*|*624041-604*|*유니바시티 레드/블랙-유니바시티 레드*|*1*|*NK31042923068*|*10*|*0*|*0"]
+
+
+
+},"imgs":{"img":[{"thumb":"http://mimage.nike.co.kr/goods/31/04/29/23/624041_COL_624041-604_55.png","normal":"http://mimage.nike.co.kr/goods/31/04/29/23/624041_COL_624041-604_375.png","extend":"http://mimage.nike.co.kr/goods/31/04/29/23/624041_COL_624041-604_750.png","detail":"http://mimage.nike.co.kr/goods/31/04/29/23/624041_COL_624041-604_2000.png"},{"thumb":"http://mimage.nike.co.kr/goods/31/04/29/23/624041_COL_624041-604_1_55.png","normal":"http://mimage.nike.co.kr/goods/31/04/29/23/624041_COL_624041-604_1_375.png","extend":"http://mimage.nike.co.kr/goods/31/04/29/23/624041_COL_624041-604_1_750.png","detail":"http://mimage.nike.co.kr/goods/31/04/29/23/624041_COL_624041-604_1_2000.png"},{"thumb":"http://mimage.nike.co.kr/goods/31/04/29/23/624041_COL_624041-604_2_55.png","normal":"http://mimage.nike.co.kr/goods/31/04/29/23/624041_COL_624041-604_2_375.png","extend":"http://mimage.nike.co.kr/goods/31/04/29/23/624041_COL_624041-604_2_750.png","detail":"http://mimage.nike.co.kr/goods/31/04/29/23/624041_COL_624041-604_2_2000.png"},{"thumb":"http://mimage.nike.co.kr/goods/31/04/29/23/624041_COL_624041-604_3_55.png","normal":"http://mimage.nike.co.kr/goods/31/04/29/23/624041_COL_624041-604_3_375.png","extend":"http://mimage.nike.co.kr/goods/31/04/29/23/624041_COL_624041-604_3_750.png","detail":"http://mimage.nike.co.kr/goods/31/04/29/23/624041_COL_624041-604_3_2000.png"},{"thumb":"http://mimage.nike.co.kr/goods/31/04/29/23/624041_COL_624041-604_4_55.png","normal":"http://mimage.nike.co.kr/goods/31/04/29/23/624041_COL_624041-604_4_375.png","extend":"http://mimage.nike.co.kr/goods/31/04/29/23/624041_COL_624041-604_4_750.png","detail":"http://mimage.nike.co.kr/goods/31/04/29/23/624041_COL_624041-604_4_2000.png"},{"thumb":"http://mimage.nike.co.kr/goods/31/04/29/23/624041_COL_624041-604_5_55.png","normal":"http://mimage.nike.co.kr/goods/31/04/29/23/624041_COL_624041-604_5_375.png","extend":"http://mimage.nike.co.kr/goods/31/04/29/23/624041_COL_624041-604_5_750.png","detail":"http://mimage.nike.co.kr/goods/31/04/29/23/624041_COL_624041-604_5_2000.png"},{"thumb":"http://mimage.nike.co.kr/goods/31/04/29/23/624041_COL_624041-604_6_55.png","normal":"http://mimage.nike.co.kr/goods/31/04/29/23/624041_COL_624041-604_6_375.png","extend":"http://mimage.nike.co.kr/goods/31/04/29/23/624041_COL_624041-604_6_750.png","detail":"http://mimage.nike.co.kr/goods/31/04/29/23/624041_COL_624041-604_6_2000.png"}],"rotationImg":[]},"investmentQuantity":2,"opt_dc_prc":"0","histMarkYn":"N","masterItemYn":"N"}]}};
+
+
+
+
+/cart/goodsItemImageXml.lecs?goodsNo=NK31042923&itemNo=NK31042923068&source=&orderNo=&orderDetailSn=
+
+
+
+http://lecs.nike.co.kr/cart/getGoodsOptionInfo.lecs?goodsNo=NK31042923&itemColor=624041-604&goodsSalePrice=269000&source=&orderNo=&orderDetailSn=

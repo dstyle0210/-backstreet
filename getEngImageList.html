@@ -6,27 +6,36 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 </head>
 <body>
-<input type="text" name="" id="style" /><span id="ttt"></span>
+<input type="text" name="" id="style" />
+<input type="text" name="" id="num" value="0" />
+<span id="ttt"></span>
 <button onclick="callLoadImage();">로딩시작</button>
 <button onclick="callClose();">로딩정지</button>
+<button onclick="callLoadSet();">셋팅</button>
 <style>div img{width:50px;height:autol;}</style>
 <div id="t"></div>
 <script>
     var style = "";
     var loading = true;
+    var code = 0;
     function appendImage(num){
         if(999<num || !loading) return;
         var textNum = (num<100) ? ((num<10) ? "00"+num : "0"+num) : ""+num;
-        $("#ttt").html(textNum);
         var url = "http://images.nike.com/is/image/DotCom/PDP_HERO/-"+style+"_"+textNum+"_A_PREM.jpg?wid=50&hei=50&fmt=jpg&qlt=20";
-        $("#t").append("<a href='img_en.html?style="+style+"_"+textNum+"'><img src='"+url+"' onerror='$(this).parent().hide()' onload='appendImage("+(num+1)+");' /></a>");
+        $("#t").prepend("<div style='float:left'><a href='img_en.html?style="+style+"_"+textNum+"'><img src='"+url+"' onerror='$(this).parent().hide()' /></a><br /><span>"+textNum+"</span></div>");
     };
     function callLoadImage(){
         style = $("#style").val();
-        appendImage(0);
+        for(i=code;i<(code+100);i++){
+            appendImage(i);
+        };
+        code = code+100;
     };
     function callClose(){
         loading = false;
+    }
+    function callLoadSet(){
+        code = $("#num").val()*1;
     }
 </script>
 </body>

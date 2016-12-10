@@ -1,0 +1,909 @@
+<form name="cartForm" id="cartForm" method="post">
+    <input name="nonEnter" style="display: none;" type="text" value="">
+    <input name="optionCartSn" id="optionCartSn" type="hidden">
+    <input name="memberNo" type="hidden" value="000000003875516">
+    <input name="source" type="hidden" value="cart"><!-- 장바구니 리스트로 부터 -->
+    <input name="cartSectionCode" type="hidden" value="10">
+    <input name="memberYN" id="memberYN" type="hidden" value="Y">
+    <input name="adultSectionCode" id="adultSectionCode" type="hidden" value="19">
+
+    <div id="content">
+        <div class="cat_order">
+            <!--<div class="store"><a href="http://www.nike.co.kr/" class="storeGo type02">나이키닷컴으로 돌아가기</a></div>-->
+            <div class="store">&nbsp;</div>
+
+            <div class="mycat" style="width: auto;">
+                <h1><img alt="my장바구니" src="/NKS1//image/web/pre/order/tit_mycat.gif"></h1>
+                <div class="cart_buy"><img alt="장바구니, 주문서작성/결제, 주문완료" src="/NKS1//image/web/pre/order/tab_cat01.gif"></div>
+            </div>
+
+
+
+            <div class="join">
+                <p>장바구니에 담긴 상품은 <span>30일간</span> 보관됩니다.</p>
+                <!-- 						<p>상품을 장기간 보관하시길 원하시면 [보관하기]를 클릭하시어 my라커에 저장해 두십시오.</p> -->
+                <p>상품을 장기간 보관하시길 원하시면 [보관하기]를 클릭하시어 위시리스트에 저장해 두십시오.</p>
+                <p></p>
+                <p>원용봉님은 MVP회원으로 상품별 <span>5%가 결제 시 자동 할인적용됩니다(일부상품 제외)</span></p>
+            </div>
+
+
+
+
+
+
+            <div class="orderList">
+                <table summary="상품, 상품금액, 수량, 합계금액에 따른 총 결제예정금액 및 장바구니에 담은 제품 정보">
+                    <caption>장바구니에 담은 제품 정보</caption><!-- #nike -->
+                    <colgroup>
+                        <col style="width: 40px;">
+                        <col>
+                        <col style="width: 70px;">
+                        <col style="width: 100px;">
+                        <col style="width: 110px;">
+                        <col style="width: 110px;">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th scope="col"><label class="hidden" for="check">선택</label><input name="chkall" title="일반상품 전체선택" class="chk" id="check" onclick="goChkAll(this,'chkdel');" type="checkbox" checked="checked" value="0"></th>
+                        <th scope="col">상품</th>
+                        <th scope="col">상품금액</th>
+                        <th scope="col">수량</th>
+                        <th scope="col">합계금액</th>
+                        <th scope="col">저장</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!-- 1 : 기본 -->
+                    <!-- 세트할인 rowspan을 위한 변수 -->
+
+
+                    <!-- 일반상품 -->
+                    <!-- 판매중인것 -->
+
+                    <tr>
+                        <td class="lns01">
+                            <label class="hidden" for="chkdel0">제품선택</label><input name="chkdel" class="chk" id="chkdel0" onclick="goDelChkAll('chkall','chkdel');" type="checkbox" checked="" alt="일반상품체크박스" value="66665349">
+                            <input name="goodsNo" id="goodsNo" type="hidden" value="NK31078020">
+                            <input name="itemNo" id="itemNo" type="hidden" value="NK31078020001">
+                            <input name="optValCd" id="optValCd" type="hidden" value="804977-010">
+                        </td>
+                        <td class="lns02">
+                            <div class="ms">
+                                <a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31078020" target="0">
+
+
+
+                                    <img class="thumb" onerror="this.src='/NKS1//image/web/no-img/80x80.gif'" alt="" src="/NKS1//image/web/no-img/80x80.gif">
+
+
+                                </a>
+                            </div>
+                            <div class="ms">
+                                <strong>
+                                    <a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31078020" target="0">
+                                        나이키 스포츠웨어 테크 플리스 에어...
+
+                                    </a>
+                                </strong>
+                                <!-- 2013-07-25 사은품 추가 start-->
+
+                                <!-- 사은품 추가 end-->
+                                <span>COLOR : 블랙/블랙/블랙</span>
+
+                                <span>SIZE : 80(S)</span>
+
+
+                                <a href="javascript:$('#chkdel0', document.cartForm).checked=true;fn_getItemList('optionChg0', 'NK31078020', '66665349', 'NK31078020001')">
+                                    <img alt="옵션변경" src="/NKS1//image/web/pre/order/btn_option.gif">
+                                </a>
+
+
+                            </div>
+
+                            <!-- 옵션변경 pop-->
+                            <div class="alert_vew08" id="optionChg0" style="left: 360px; top: 350px; display: none;"></div>
+                            <!-- // 옵션변경 pop-->
+
+                        </td>
+                        <td class="lns03">
+                            <strong>399,000원</strong>
+                            <!--
+
+
+                                    <strong>399,000원</strong>
+
+
+
+
+
+
+
+
+
+
+
+
+                            -->
+                        </td>
+                        <td class="lns04">
+
+
+
+
+
+
+
+
+                            <label class="hidden" for="amountType02">수량입력</label><input name="qty" title="수량선택" class="qty" id="qty0_10" style="-ms-ime-mode: disabled;" type="text" maxlength="4" value="1">
+                            <div class="option">
+                                <a href="javascript:$('input[name=&quot;chkdel&quot;]', document.cartForm).get('0').checked=true;fn_changeOrderQuantity('0', '66665349', 'up', 10);"><img alt="수량증가" src="/NKS1//image/web/pre/order/btn_option_up.gif"></a>
+                                <a href="javascript:$('input[name=&quot;chkdel&quot;]', document.cartForm).get('0').checked=true;fn_changeOrderQuantity('0', '66665349', 'dn', 10);"><img alt="수량감소" src="/NKS1//image/web/pre/order/btn_option_down.gif"></a>
+                            </div>
+                            <div>
+                                <a title="변경" href="javascript:$('input[name=&quot;chkdel&quot;]', document.cartForm).get('0').checked=true;fn_updateOrderQuantity('0', '66665349', 1, 'on');"><img alt="변경" src="/NKS1//image/web/pre/order/btn_edit02.gif"></a>
+                            </div>
+
+                        </td>
+                        <td class="lns05">
+                            <!-- <span class="discount">399,000원</span> -->
+                            <strong>399,000원</strong>
+                            <input name="finalPricePerGoods" id="finalPricePerGoods" type="hidden" value="399000">
+                        </td>
+                        <td class="lns06">
+
+
+
+                            <a href="javascript:createWishList('ONE', 'NK31078020', 'NK31078020001', '399000', '1');fn_catalystAddLocker('804977-010','399000', '1');"><img alt="보관하기" src="/NKS1//image/web/pre/order/btn_cat.gif"></a>
+
+
+
+                            <a href="javascript:fn_deleteCartItem('ONE', '66665349', 'NK31078020');fn_catalystDelCart('804977-010');"><img alt="삭제" src="/NKS1//image/web/pre/order/btn_delete.gif"></a>
+                        </td>
+                    </tr>
+
+
+
+
+
+                    <!-- 일반상품 -->
+                    <!-- 판매중인것 -->
+
+                    <tr>
+                        <td class="lns01">
+                            <label class="hidden" for="chkdel1">제품선택</label><input name="chkdel" class="chk" id="chkdel1" onclick="goDelChkAll('chkall','chkdel');" type="checkbox" checked="" alt="일반상품체크박스" value="66664624">
+                            <input name="goodsNo" id="goodsNo" type="hidden" value="NK31078137">
+                            <input name="itemNo" id="itemNo" type="hidden" value="NK31078137033">
+                            <input name="optValCd" id="optValCd" type="hidden" value="878671-600">
+                        </td>
+                        <td class="lns02">
+                            <div class="ms">
+                                <a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31078137" target="0">
+
+
+
+                                    <img class="thumb" onerror="this.src='/NKS1//image/web/no-img/80x80.gif'" alt="" src="/NKS1//image/web/no-img/80x80.gif">
+
+
+                                </a>
+                            </div>
+                            <div class="ms">
+                                <strong>
+                                    <a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31078137" target="0">
+                                        나이키 줌 올 아웃 로우
+
+                                    </a>
+                                </strong>
+                                <!-- 2013-07-25 사은품 추가 start-->
+
+                                <!-- 사은품 추가 end-->
+                                <span>COLOR : 파이어 핑크/블랙-브라이...</span>
+
+                                <span>SIZE : 230</span>
+
+
+                                <a href="javascript:$('#chkdel1', document.cartForm).checked=true;fn_getItemList('optionChg1', 'NK31078137', '66664624', 'NK31078137033')">
+                                    <img alt="옵션변경" src="/NKS1//image/web/pre/order/btn_option.gif">
+                                </a>
+
+
+                            </div>
+
+                            <!-- 옵션변경 pop-->
+                            <div class="alert_vew08" id="optionChg1" style="left: 360px; top: 350px; display: none;"></div>
+                            <!-- // 옵션변경 pop-->
+
+                        </td>
+                        <td class="lns03">
+                            <strong>169,000원</strong>
+                            <!--
+
+
+                                    <strong>169,000원</strong>
+
+
+
+
+
+
+
+
+
+
+
+
+                            -->
+                        </td>
+                        <td class="lns04">
+
+
+
+
+
+
+
+
+                            <label class="hidden" for="amountType02">수량입력</label><input name="qty" title="수량선택" class="qty" id="qty1_10" style="-ms-ime-mode: disabled;" type="text" maxlength="4" value="1">
+                            <div class="option">
+                                <a href="javascript:$('input[name=&quot;chkdel&quot;]', document.cartForm).get('1').checked=true;fn_changeOrderQuantity('1', '66664624', 'up', 10);"><img alt="수량증가" src="/NKS1//image/web/pre/order/btn_option_up.gif"></a>
+                                <a href="javascript:$('input[name=&quot;chkdel&quot;]', document.cartForm).get('1').checked=true;fn_changeOrderQuantity('1', '66664624', 'dn', 10);"><img alt="수량감소" src="/NKS1//image/web/pre/order/btn_option_down.gif"></a>
+                            </div>
+                            <div>
+                                <a title="변경" href="javascript:$('input[name=&quot;chkdel&quot;]', document.cartForm).get('1').checked=true;fn_updateOrderQuantity('1', '66664624', 1, 'on');"><img alt="변경" src="/NKS1//image/web/pre/order/btn_edit02.gif"></a>
+                            </div>
+
+                        </td>
+                        <td class="lns05">
+                            <!-- <span class="discount">169,000원</span> -->
+                            <strong>169,000원</strong>
+                            <input name="finalPricePerGoods" id="finalPricePerGoods" type="hidden" value="169000">
+                        </td>
+                        <td class="lns06">
+
+
+
+                            <a href="javascript:createWishList('ONE', 'NK31078137', 'NK31078137033', '169000', '1');fn_catalystAddLocker('878671-600','169000', '1');"><img alt="보관하기" src="/NKS1//image/web/pre/order/btn_cat.gif"></a>
+
+
+
+                            <a href="javascript:fn_deleteCartItem('ONE', '66664624', 'NK31078137');fn_catalystDelCart('878671-600');"><img alt="삭제" src="/NKS1//image/web/pre/order/btn_delete.gif"></a>
+                        </td>
+                    </tr>
+
+
+
+
+
+                    <!-- 일반상품 -->
+
+
+
+
+                    <tr>
+                        <td class="lns07" colspan="6">
+                            <div>
+                                <p>상품주문금액 <strong>568,000</strong></p>
+                                <p>할인금액 - <strong>28,500원</strong></p>
+                                <p>배송비 + <strong>0원</strong></p>
+                            </div>
+                            <div class="total">
+                                <p>총 결제 예정금액</p>
+                                <strong><em>539,500</em> 원</strong>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+
+            <div class="btn_cat">
+                <a href="http://www.nike.co.kr/"><img alt="쇼핑 계속하기" src="/NKS1//image/web/pre/order/btn_shop.gif"></a>
+
+
+
+                <a href="javascript:fn_goOrder();"><img alt="주문하기" src="/NKS1//image/web/pre/order/btn_order.gif"></a>
+
+
+
+
+            </div>
+            <!-- 추천상품 코너 추가 -->
+
+
+
+
+            <div class="panel">
+
+
+
+
+
+
+
+
+
+
+
+                <script>
+
+                    //코너 이미지 롤링
+                    function slideList(boxid,sz,it,n){
+                        var slider = $("#"+boxid + " ul");
+                        var size=sz;       //아이템당 폭, /*롤링되는 단의 넓이*/
+                        var items = it; //리스트에 노출될 아이템수, /*롤링되는 단의 갯수 -1*/
+                        var gap = size * n;
+                        var sLen = slider.find("li").length;
+                        var x = sLen - n - 1 ;
+                        var isRun = false;
+
+                        $("#"+boxid + " .btn_L").click(function(){prev();});
+                        $("#"+boxid + " .btn_R").click(function(){next();});
+
+                        function prev(){
+                            if(isRun) return;
+
+                            isRun = true;
+                            if(sLen > items){
+                                slider.css("left",-gap);
+                                ob = slider.find("li:gt("+ x +")").detach();
+                                slider.animate({
+                                    "left":"+="+gap
+                                },{
+                                    complete:function(){
+                                        isRun = false;
+                                    }
+                                });
+
+                                ob.prependTo(slider);
+                            }
+                        }
+
+                        function next(){
+                            if(isRun) return;
+
+                            isRun = true;
+                            if(sLen > items){
+                                slider.append(slider.find("li:lt("+ n+")").clone("li"));
+                                slider.animate({
+                                    "left":"-="+gap
+                                },function(){
+                                    slider.find("li:lt("+ n+")").remove();
+                                    slider.css("left",0);
+                                    isRun = false;
+                                });
+                            }
+                        }
+                    }
+
+
+                    //옵션 레이어창 오픈
+                    function openOptionPopup(optDiv, goodsNo, cartSn, itemNo){
+                        //모든 옵션레이어창 close
+                        closeAllLayerPopup("displayOptionChg");
+                        $.ajax({
+                            type: 'POST',
+                            url: '/display/showOptionPopupAjax.lecs',
+                            cache: false,
+                            data: 'goodsNo='+goodsNo+'&itemNo='+itemNo,
+                            success: function(html){
+                                $('#goodsNo').val(goodsNo);
+                                $('#' + optDiv).html(html);
+                                $('#' + optDiv).show();
+
+                                openLayer(optDiv, {center: true, blocker: true});
+                            }
+                        });
+                    }
+
+                    //레이어 팝업 닫기
+                    function closeAllLayerPopup(id){
+
+                        //모든 옵션레이어창 close
+                        fn_closeAllLayerPopup("prdImg");
+                        fn_closeAllLayerPopup("optionChg");
+                        $('#'+id).hide();
+                        $('#'+id).html("");
+                    }
+                </script>
+
+
+                <h2 class="tit"><img alt="추천상품" src="/NKS1//image/web/pre/order/tit_tex14.gif"></h2>
+                <div class="orderList02" id="rolling_box">
+
+
+                    <div class="btn_L"><img alt="이전" src="/NKS1//image/web/pre/order/btn_prev.gif"></div>
+
+
+
+                    <div class="ol_box">
+
+
+                        <ul>
+
+
+                            <!-- 썸네일박스 루핑 시작 -->
+                            <li>
+                                <dl>
+                                    <dt><a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31007983" target="0"><img width="130" height="130" style="margin-left: -10px; display: inline-block;" onerror="this.src='/NKS1//image/web/no-img/110x110.gif'" alt="나이키 코튼 쿠션 쿼터 삭스" src="/NKS1//image/web/no-img/110x110.gif"></a></dt>
+                                    <dd>
+                                        <p>
+                                            <a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31007983" target="0">
+                                                나이키 코튼 쿠션 쿼터 삭스
+                                            </a>
+                                        </p>
+                                    </dd>
+                                    <dd><strong>16,500원</strong></dd>
+                                    <dd>
+                                        <a class="btn_cart" href="javascript:openOptionPopup('displayOptionChg', 'NK31007983', 0, '');"><img alt="장바구니" src="/NKS1//image/web/pre/order/btn_ne15.gif"></a></dd>
+                                </dl>
+                            </li>
+
+
+
+                            <!-- 썸네일박스 루핑 시작 -->
+                            <li>
+                                <dl>
+                                    <dt><a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31065026" target="0"><img width="130" height="130" style="margin-left: -10px; display: inline-block;" onerror="this.src='/NKS1//image/web/no-img/110x110.gif'" alt="나이키 드라이-핏 쿠션 노 쇼우 탭 삭스" src="/NKS1//image/web/no-img/110x110.gif"></a></dt>
+                                    <dd>
+                                        <p>
+                                            <a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31065026" target="0">
+                                                나이키 드라이-핏 쿠션 노 쇼우 ...
+                                            </a>
+                                        </p>
+                                    </dd>
+                                    <dd><strong>20,000원</strong></dd>
+                                    <dd>
+                                        <a class="btn_cart" href="javascript:openOptionPopup('displayOptionChg', 'NK31065026', 0, '');"><img alt="장바구니" src="/NKS1//image/web/pre/order/btn_ne15.gif"></a></dd>
+                                </dl>
+                            </li>
+
+
+
+                            <!-- 썸네일박스 루핑 시작 -->
+                            <li>
+                                <dl>
+                                    <dt><a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31007984" target="0"><img width="130" height="130" style="margin-left: -10px; display: inline-block;" onerror="this.src='/NKS1//image/web/no-img/110x110.gif'" alt="3팩 라이트웨이트 노 쇼우 삭스" src="/NKS1//image/web/no-img/110x110.gif"></a></dt>
+                                    <dd>
+                                        <p>
+                                            <a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31007984" target="0">
+                                                3팩 라이트웨이트 노 쇼우 삭스
+                                            </a>
+                                        </p>
+                                    </dd>
+                                    <dd><strong>13,500원</strong></dd>
+                                    <dd>
+                                        <a class="btn_cart" href="javascript:openOptionPopup('displayOptionChg', 'NK31007984', 0, '');"><img alt="장바구니" src="/NKS1//image/web/pre/order/btn_ne15.gif"></a></dd>
+                                </dl>
+                            </li>
+
+
+
+                            <!-- 썸네일박스 루핑 시작 -->
+                            <li>
+                                <dl>
+                                    <dt><a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31065460" target="0"><img width="130" height="130" style="margin-left: -10px; display: inline-block;" onerror="this.src='/NKS1//image/web/no-img/110x110.gif'" alt="나이키 첼린저 암 밴드" src="/NKS1//image/web/no-img/110x110.gif"></a></dt>
+                                    <dd>
+                                        <p>
+                                            <a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31065460" target="0">
+                                                나이키 첼린저 암 밴드
+                                            </a>
+                                        </p>
+                                    </dd>
+                                    <dd><strong>43,000원</strong></dd>
+                                    <dd>
+                                        <a class="btn_cart" href="javascript:openOptionPopup('displayOptionChg', 'NK31065460', 0, '');"><img alt="장바구니" src="/NKS1//image/web/pre/order/btn_ne15.gif"></a></dd>
+                                </dl>
+                            </li>
+
+
+
+                            <!-- 썸네일박스 루핑 시작 -->
+                            <li>
+                                <dl>
+                                    <dt><a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31050321" target="0"><img width="130" height="130" style="margin-left: -10px; display: inline-block;" onerror="this.src='/NKS1//image/web/no-img/110x110.gif'" alt="나이키 드라이-핏 2.0 헤드밴드" src="/NKS1//image/web/no-img/110x110.gif"></a></dt>
+                                    <dd>
+                                        <p>
+                                            <a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31050321" target="0">
+                                                나이키 드라이-핏 2.0 헤드밴드
+                                            </a>
+                                        </p>
+                                    </dd>
+                                    <dd><strong>12,000원</strong></dd>
+                                    <dd>
+                                        <a class="btn_cart" href="javascript:openOptionPopup('displayOptionChg', 'NK31050321', 0, '');"><img alt="장바구니" src="/NKS1//image/web/pre/order/btn_ne15.gif"></a></dd>
+                                </dl>
+                            </li>
+
+
+
+                            <!-- 썸네일박스 루핑 시작 -->
+                            <li>
+                                <dl>
+                                    <dt><a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31065510" target="0"><img width="130" height="130" style="margin-left: -10px; display: inline-block;" onerror="this.src='/NKS1//image/web/no-img/110x110.gif'" alt="나이키 프린티드 헤드밴드 어솔티드 6팩" src="/NKS1//image/web/no-img/110x110.gif"></a></dt>
+                                    <dd>
+                                        <p>
+                                            <a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31065510" target="0">
+                                                나이키 프린티드 헤드밴드 어솔티...
+                                            </a>
+                                        </p>
+                                    </dd>
+                                    <dd><strong>24,000원</strong></dd>
+                                    <dd>
+                                        <a class="btn_cart" href="javascript:openOptionPopup('displayOptionChg', 'NK31065510', 0, '');"><img alt="장바구니" src="/NKS1//image/web/pre/order/btn_ne15.gif"></a></dd>
+                                </dl>
+                            </li>
+
+
+
+                            <!-- 썸네일박스 루핑 시작 -->
+                            <li>
+                                <dl>
+                                    <dt><a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31038155" target="0"><img width="130" height="130" style="margin-left: -10px; display: inline-block;" onerror="this.src='/NKS1//image/web/no-img/110x110.gif'" alt="조던 점프맨 헤드밴드" src="/NKS1//image/web/no-img/110x110.gif"></a></dt>
+                                    <dd>
+                                        <p>
+                                            <a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31038155" target="0">
+                                                조던 점프맨 헤드밴드
+                                            </a>
+                                        </p>
+                                    </dd>
+                                    <dd><strong>15,000원</strong></dd>
+                                    <dd>
+                                        <a class="btn_cart" href="javascript:openOptionPopup('displayOptionChg', 'NK31038155', 0, '');"><img alt="장바구니" src="/NKS1//image/web/pre/order/btn_ne15.gif"></a></dd>
+                                </dl>
+                            </li>
+
+
+
+                            <!-- 썸네일박스 루핑 시작 -->
+                            <li>
+                                <dl>
+                                    <dt><a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31065344" target="0"><img width="130" height="130" style="margin-left: -10px; display: inline-block;" onerror="this.src='/NKS1//image/web/no-img/110x110.gif'" alt="나이키 드라이-핏 스텔스 리스트밴드" src="/NKS1//image/web/no-img/110x110.gif"></a></dt>
+                                    <dd>
+                                        <p>
+                                            <a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31065344" target="0">
+                                                나이키 드라이-핏 스텔스 리스트...
+                                            </a>
+                                        </p>
+                                    </dd>
+                                    <dd><strong>12,000원</strong></dd>
+                                    <dd>
+                                        <a class="btn_cart" href="javascript:openOptionPopup('displayOptionChg', 'NK31065344', 0, '');"><img alt="장바구니" src="/NKS1//image/web/pre/order/btn_ne15.gif"></a></dd>
+                                </dl>
+                            </li>
+
+
+
+                            <!-- 썸네일박스 루핑 시작 -->
+                            <li>
+                                <dl>
+                                    <dt><a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31035119" target="0"><img width="130" height="130" style="margin-left: -10px; display: inline-block;" onerror="this.src='/NKS1//image/web/no-img/110x110.gif'" alt="나이키 스우시 더블와이드 리스트밴드" src="/NKS1//image/web/no-img/110x110.gif"></a></dt>
+                                    <dd>
+                                        <p>
+                                            <a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31035119" target="0">
+                                                나이키 스우시 더블와이드 리스트...
+                                            </a>
+                                        </p>
+                                    </dd>
+                                    <dd><strong>13,000원</strong></dd>
+                                    <dd>
+                                        <a class="btn_cart" href="javascript:openOptionPopup('displayOptionChg', 'NK31035119', 0, '');"><img alt="장바구니" src="/NKS1//image/web/pre/order/btn_ne15.gif"></a></dd>
+                                </dl>
+                            </li>
+
+
+
+                            <!-- 썸네일박스 루핑 시작 -->
+                            <li>
+                                <dl>
+                                    <dt><a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31038291" target="0"><img width="130" height="130" style="margin-left: -10px; display: inline-block;" onerror="this.src='/NKS1//image/web/no-img/110x110.gif'" alt="나이키 SB 아이콘 어저스터블 햇" src="/NKS1//image/web/no-img/110x110.gif"></a></dt>
+                                    <dd>
+                                        <p>
+                                            <a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31038291" target="0">
+                                                나이키 SB 아이콘 어저스터블 햇
+                                            </a>
+                                        </p>
+                                    </dd>
+                                    <dd><strong>39,000원</strong></dd>
+                                    <dd>
+                                        <a class="btn_cart" href="javascript:openOptionPopup('displayOptionChg', 'NK31038291', 0, '');"><img alt="장바구니" src="/NKS1//image/web/pre/order/btn_ne15.gif"></a></dd>
+                                </dl>
+                            </li>
+
+
+
+                            <!-- 썸네일박스 루핑 시작 -->
+                            <li>
+                                <dl>
+                                    <dt><a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31056385" target="0"><img width="130" height="130" style="margin-left: -10px; display: inline-block;" onerror="this.src='/NKS1//image/web/no-img/110x110.gif'" alt="나이키 린 웨이스트팩" src="/NKS1//image/web/no-img/110x110.gif"></a></dt>
+                                    <dd>
+                                        <p>
+                                            <a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31056385" target="0">
+                                                나이키 린 웨이스트팩
+                                            </a>
+                                        </p>
+                                    </dd>
+                                    <dd><strong>23,000원</strong></dd>
+                                    <dd>
+                                        <a class="btn_cart" href="javascript:openOptionPopup('displayOptionChg', 'NK31056385', 0, '');"><img alt="장바구니" src="/NKS1//image/web/pre/order/btn_ne15.gif"></a></dd>
+                                </dl>
+                            </li>
+
+
+
+                            <!-- 썸네일박스 루핑 시작 -->
+                            <li>
+                                <dl>
+                                    <dt><a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31050343" target="0"><img width="130" height="130" style="margin-left: -10px; display: inline-block;" onerror="this.src='/NKS1//image/web/no-img/110x110.gif'" alt="나이키 테니스/ 골프 엘보우 밴드 2" src="/NKS1//image/web/no-img/110x110.gif"></a></dt>
+                                    <dd>
+                                        <p>
+                                            <a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31050343" target="0">
+                                                나이키 테니스/ 골프 엘보우 밴드...
+                                            </a>
+                                        </p>
+                                    </dd>
+                                    <dd><strong>22,000원</strong></dd>
+                                    <dd>
+                                        <a class="btn_cart" href="javascript:openOptionPopup('displayOptionChg', 'NK31050343', 0, '');"><img alt="장바구니" src="/NKS1//image/web/pre/order/btn_ne15.gif"></a></dd>
+                                </dl>
+                            </li>
+
+
+
+                            <!-- 썸네일박스 루핑 시작 -->
+                            <li>
+                                <dl>
+                                    <dt><a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31074155" target="0"><img width="130" height="130" style="margin-left: -10px; display: inline-block;" onerror="this.src='/NKS1//image/web/no-img/110x110.gif'" alt="나이키 드라이-핏 360 암 슬리브" src="/NKS1//image/web/no-img/110x110.gif"></a></dt>
+                                    <dd>
+                                        <p>
+                                            <a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31074155" target="0">
+                                                나이키 드라이-핏 360 암 슬리브
+                                            </a>
+                                        </p>
+                                    </dd>
+                                    <dd><strong>37,000원</strong></dd>
+                                    <dd>
+                                        <a class="btn_cart" href="javascript:openOptionPopup('displayOptionChg', 'NK31074155', 0, '');"><img alt="장바구니" src="/NKS1//image/web/pre/order/btn_ne15.gif"></a></dd>
+                                </dl>
+                            </li>
+
+
+
+                            <!-- 썸네일박스 루핑 시작 -->
+                            <li>
+                                <dl>
+                                    <dt><a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31050350" target="0"><img width="130" height="130" style="margin-left: -10px; display: inline-block;" onerror="this.src='/NKS1//image/web/no-img/110x110.gif'" alt="나이키 프로 컴배트 파텔라 밴드 2.0" src="/NKS1//image/web/no-img/110x110.gif"></a></dt>
+                                    <dd>
+                                        <p>
+                                            <a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31050350" target="0">
+                                                나이키 프로 컴배트 파텔라 밴드...
+                                            </a>
+                                        </p>
+                                    </dd>
+                                    <dd><strong>18,000원</strong></dd>
+                                    <dd>
+                                        <a class="btn_cart" href="javascript:openOptionPopup('displayOptionChg', 'NK31050350', 0, '');"><img alt="장바구니" src="/NKS1//image/web/pre/order/btn_ne15.gif"></a></dd>
+                                </dl>
+                            </li>
+
+
+
+                            <!-- 썸네일박스 루핑 시작 -->
+                            <li>
+                                <dl>
+                                    <dt><a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31050348" target="0"><img width="130" height="130" style="margin-left: -10px; display: inline-block;" onerror="this.src='/NKS1//image/web/no-img/110x110.gif'" alt="나이키 프로 컴배트 리스트 랩 2.0" src="/NKS1//image/web/no-img/110x110.gif"></a></dt>
+                                    <dd>
+                                        <p>
+                                            <a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31050348" target="0">
+                                                나이키 프로 컴배트 리스트 랩 2...
+                                            </a>
+                                        </p>
+                                    </dd>
+                                    <dd><strong>14,000원</strong></dd>
+                                    <dd>
+                                        <a class="btn_cart" href="javascript:openOptionPopup('displayOptionChg', 'NK31050348', 0, '');"><img alt="장바구니" src="/NKS1//image/web/pre/order/btn_ne15.gif"></a></dd>
+                                </dl>
+                            </li>
+
+
+
+                            <!-- 썸네일박스 루핑 시작 -->
+                            <li>
+                                <dl>
+                                    <dt><a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31050336" target="0"><img width="130" height="130" style="margin-left: -10px; display: inline-block;" onerror="this.src='/NKS1//image/web/no-img/110x110.gif'" alt="나이키 오픈-파텔라" src="/NKS1//image/web/no-img/110x110.gif"></a></dt>
+                                    <dd>
+                                        <p>
+                                            <a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31050336" target="0">
+                                                나이키 오픈-파텔라
+                                            </a>
+                                        </p>
+                                    </dd>
+                                    <dd><strong>25,000원</strong></dd>
+                                    <dd>
+                                        <a class="btn_cart" href="javascript:openOptionPopup('displayOptionChg', 'NK31050336', 0, '');"><img alt="장바구니" src="/NKS1//image/web/pre/order/btn_ne15.gif"></a></dd>
+                                </dl>
+                            </li>
+
+
+
+                            <!-- 썸네일박스 루핑 시작 -->
+                            <li>
+                                <dl>
+                                    <dt><a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31050324" target="0"><img width="130" height="130" style="margin-left: -10px; display: inline-block;" onerror="this.src='/NKS1//image/web/no-img/110x110.gif'" alt="나이키 빅 마우스 물병" src="/NKS1//image/web/no-img/110x110.gif"></a></dt>
+                                    <dd>
+                                        <p>
+                                            <a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31050324" target="0">
+                                                나이키 빅 마우스 물병
+                                            </a>
+                                        </p>
+                                    </dd>
+                                    <dd><strong>7,500원</strong></dd>
+                                    <dd>
+                                        <a class="btn_cart" href="javascript:openOptionPopup('displayOptionChg', 'NK31050324', 0, '');"><img alt="장바구니" src="/NKS1//image/web/pre/order/btn_ne15.gif"></a></dd>
+                                </dl>
+                            </li>
+
+
+
+                            <!-- 썸네일박스 루핑 시작 -->
+                            <li>
+                                <dl>
+                                    <dt><a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK00068073" target="0"><img width="130" height="130" style="margin-left: -10px; display: inline-block;" onerror="this.src='/NKS1//image/web/no-img/110x110.gif'" alt="나이키 볼 펌프" src="/NKS1//image/web/no-img/110x110.gif"></a></dt>
+                                    <dd>
+                                        <p>
+                                            <a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK00068073" target="0">
+                                                나이키 볼 펌프
+                                            </a>
+                                        </p>
+                                    </dd>
+                                    <dd><strong>17,000원</strong></dd>
+                                    <dd>
+                                        <a class="btn_cart" href="javascript:openOptionPopup('displayOptionChg', 'NK00068073', 0, '');"><img alt="장바구니" src="/NKS1//image/web/pre/order/btn_ne15.gif"></a></dd>
+                                </dl>
+                            </li>
+
+
+                            <!-- //썸네일박스 루핑 끝 -->
+                        </ul>
+
+
+                    </div>
+
+
+                    <div class="btn_R"><img alt="다음" src="/NKS1//image/web/pre/order/btn_next.gif"></div>
+
+
+
+                </div>
+                <div class="alert_vew08" id="displayOptionChg" style="display: none;"></div>
+                <script type="text/javascript">slideList("rolling_box",165,4,5);</script>
+
+
+
+            </div>
+            <!-- 추천상품 코너 끝 -->
+
+            <h2 class="tit"><img alt="품절/판매 종료 상품" src="/NKS1//image/web/pre/order/tit_te01.gif"></h2>
+
+            <div class="orderList_b">
+                <table summary="상품, 상품금액, 수량, 합계금액에 따른 총 결제예정금액 및 장바구니에 담은 품절 및 판매 종료 상품 정보"><!-- #nike -->
+                    <caption>장바구니에 담은 품절 및 판매 종료 제품 정보</caption><!-- #nike -->
+                    <colgroup>
+                        <col style="width: 40px;">
+                        <col style="width: 370px;">
+                        <col style="width: 110px;">
+                        <col style="width: 110px;">
+                        <col style="width: 110px;">
+                    </colgroup>
+
+
+                    <!-- 일반상품 -->
+
+
+
+
+
+                    <!-- 일반상품 -->
+
+
+
+
+
+                    <!-- 일반상품 -->
+                    <!-- 판매중인것 -->
+
+                    <tbody><tr>
+                        <td class="lns01">
+                            <label class="hidden" for="offchkdel2">선택</label><input name="offchkdel" class="chk" id="offchkdel2" type="checkbox" checked="" alt="일반상품체크박스" value="66664128">
+                            <input name="offCartSn" id="offCartSn" type="hidden" value="66664128">
+                        </td>
+                        <td class="lns02">
+                            <div class="ms">
+                                <a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31013523" target="0">
+
+
+
+                                    <img class="thumb" onerror="this.src='/NKS1//image/web/no-img/80x80.gif'" alt="" src="/NKS1//image/web/no-img/80x80.gif">
+
+
+                                </a>
+                            </div>
+                            <div class="ms">
+                                <strong>
+                                    <a href="http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK31013523" target="0">
+                                        에어 조던 1 레트로 하이 OG
+                                    </a>
+                                </strong>
+                                <span>COLOR : 블랙/블랙-화이트-바시티...</span>
+
+                                <span>SIZE : 280</span>
+
+
+                                <a href="javascript:fn_getItemList('optionChg2', 'NK31013523', '66664128', 'NK31013523289')">
+                                    <img alt="옵션변경" src="/NKS1//image/web/pre/order/btn_option.gif">
+                                </a>
+
+                            </div>
+
+                            <!-- 옵션변경 pop-->
+                            <div class="alert_vew08" id="optionChg2" style="left: 360px; top: 350px; display: none;"></div>
+
+                            <!-- // 옵션변경 pop-->
+                        </td>
+                        <td class="lns03">
+
+
+
+                            <strong>199,000원</strong>
+
+
+                        </td>
+                        <td class="lns04">
+
+
+
+
+
+
+
+
+                            <label class="hidden" for="amountType02">수량입력</label><input name="qty" title="수량선택" class="qty" id="qty2_10" style="-ms-ime-mode: disabled;" type="text" maxlength="4" value="1">
+                            <div class="option">
+                                <a href="javascript:fn_changeOrderQuantity('2', '66664128', 'up', 10);"><img alt="수량증가" src="/NKS1//image/web/pre/order/btn_option_up.gif"></a>
+                                <a href="javascript:fn_changeOrderQuantity('2', '66664128', 'dn', 10);"><img alt="수량감소" src="/NKS1//image/web/pre/order/btn_option_down.gif"></a>
+                            </div>
+                            <div>
+                                <a title="변경" href="javascript:fn_updateOrderQuantity('2', '66664128', 1, 'on');"><img alt="변경" src="/NKS1//image/web/pre/order/btn_edit02.gif"></a>
+                            </div>
+
+                        </td>
+                        <td class="lns05">
+                            <strong>199,000원</strong>
+                        </td>
+                        <td class="lns06">
+                            <strong>
+                                판매종료
+                            </strong>
+                            <!-- <a href="javascript:createWishList('CHECK', '',  '');"><img src="/NKS1//image/web/pre/order/btn_cat.gif" alt="보관하기" /></a> -->
+                            <a href="javascript:fn_deleteCartItem('ONE', '66664128', 'NK31013523');fn_catalystDelCart('555088-026');"><img alt="삭제" src="/NKS1//image/web/pre/order/btn_delete.gif"></a>
+                        </td>
+                    </tr>
+
+
+
+
+                    </tbody></table>
+            </div>
+
+            <!-- 150416 카드혜택안내 배너 : str -->
+
+
+
+
+
+            <!-- //150416 카드혜택안내 배너 : end -->
+        </div>
+    </div>
+</form>

@@ -2,17 +2,178 @@
 <html>
 <head>
     <meta content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
     <title>Test</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.xdomainajax/0.11/jquery.xdomainajax.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <script src="xml2json.js"></script>
 </head>
 <body>
 <pre id="result"></pre>
-<button onclick="loop();">start</button>
+
+<input type="text" name="" id="start" />
+<input type="text" name="" id="end" />
+<button onclick="getListIndex();">번호순</button>
+<button onclick="getReadyIndex();">준비순</button>
+<button onclick="getNullIndex();">빈값순</button>
 <button onclick="stop();">stop</button>
+
 <script type="text/javascript">
+var collectArray = [];
+function getListIndex(){
+    var strNum = $("#start").val();
+    var endNum = $("#end").val();
+    for(idx = strNum; idx<endNum; idx++){
+        collectArray.push(idx);
+    };
+    console.log(collectArray);
+    getNK_list();
+};
+function getReadyIndex(){
+    $.getJSON("https://spreadsheets.google.com/feeds/list/1cK3kzT2hJ88shFvENpV_FIozpKMAHFL7FhuyyQlUEXE/1/public/values?alt=json",function(DB) {
+        var sneakers = _.map(DB.feed.entry, function (data) {
+            var o = {};
+            // 1차정제(스프레드시트 데이터)
+            for (key in data) {
+                if (key.indexOf("gsx$") != -1) {
+                    var nkey = key.split("gsx$")[1];
+                    o[nkey] = data[key].$t;
+                }
+            }
+            return o;
+        });
+        var ready = _.filter(sneakers,function(item){
+            return item.name=="[Nike] ";
+        });
+        collectArray = _.map(ready,function(item){
+            return item.no;
+        });
+        console.log(collectArray);
+        getNK_list();
+    });
+};
+function getNullIndex(){
+    var strNum = $("#start").val();
+    var endNum = $("#end").val();
+    $.getJSON("https://spreadsheets.google.com/feeds/list/1cK3kzT2hJ88shFvENpV_FIozpKMAHFL7FhuyyQlUEXE/1/public/values?alt=json",function(DB) {
+        var sneakers = _.map(DB.feed.entry, function (data) {
+            var o = {};
+            // 1차정제(스프레드시트 데이터)
+            for (key in data) {
+                if (key.indexOf("gsx$") != -1) {
+                    var nkey = key.split("gsx$")[1];
+                    o[nkey] = data[key].$t;
+                }
+            }
+            return o;
+        });
+        var startIdx = (strNum) ? strNum : (sneakers[sneakers.length-1]).no*1;
+        var endIdx = (endNum) ? endNum : (sneakers[0]).no*1;
+        var sneakerArray = _.map(sneakers,function(sneaker){return sneaker.no*1});
+        console.log(sneakerArray);
+        var nullArray = [];
+        for(var idx=startIdx;idx<endIdx;idx++){
+            nullArray.push(idx);
+        };
+        collectArray = _.difference(nullArray,sneakerArray);
+        console.log(collectArray);
+        getNK_list();
+    });
+};
+var incount = 0;
+function getNK_item(NK,callBack){
+    if(incount==0){
+        console.log("연결중 : "+NK);
+    }else{
+        console.log("재연결중 : "+NK);
+    };
+    $.ajax({
+        url: 'http://m.nike.co.kr/mobile/goods/showGoodsDetail.lecs?goodsNo=NK'+NK,
+        dataType: "xml",
+        type: 'GET',
+        success: function(res) {
+            var title = "";
+            $(res.responseText).map(function(key,val){
+                if("og:title" == $(this).attr("property")){
+                    title = $(this).attr("content");
+                    $("#result").append("<span>"+NK+","+ title +"</span><br />");
+                };
+            });
+            var data = {no:NK,name:title};
+            callBack.call(null,data);
+        },
+        error:function(res){
+            if(incount==0) {
+                incount = 1;
+                console.log("연결에러 : " + res);
+                getNK_item(NK, callBack);
+            }else{
+                incount = 0;
+                console.log("재연결에러 : " + res);
+            };
+        }
+    });
+};
+var loadIdx = 0;
+function getNK_list(){
+    if(collectArray[loadIdx]){
+        getNK_item(collectArray[loadIdx],function(data){
+            var data = data;
+            if(data.name){
+                $.ajax({
+                    url: "https://script.google.com/macros/s/AKfycbxVPxSiiB_RUyPMdXP6P5rmjp-hIlfoQkVr6DNNPDw1C7Z8zAo/exec",
+                    data: {no:data.no,name:data.name},
+                    type: "POST",
+                    success: function(response) {
+                        console.log(data.no+":"+data.name+"시트 저장완료");
+                        setTimeout(function(){
+                            getNK_list();
+                        },500);
+                    }.bind(this),
+                    error: function(xhr, status, err) {
+                        console.log(err);
+                        // 오류시 사용
+                    }.bind(this)
+                });
+            }else{
+                console.log(data.no+":"+data.name+"상품 없음");
+                setTimeout(function(){
+                    getNK_list();
+                },500);
+            };
+        })
+    }else{
+        console.log("종료");
+    }
+    loadIdx = loadIdx+1;
+};
+
+
+    /*
+
+
     var used = false;
+    function nikeData(){
+        $.getJSON("https://spreadsheets.google.com/feeds/list/1cK3kzT2hJ88shFvENpV_FIozpKMAHFL7FhuyyQlUEXE/1/public/values?alt=json",function(DB) {
+            var sneakers = _.map(DB.feed.entry, function (data) {
+                var o = {};
+                // 1차정제(스프레드시트 데이터)
+                for (key in data) {
+                    if (key.indexOf("gsx$") != -1) {
+                        var nkey = key.split("gsx$")[1];
+                        o[nkey] = data[key].$t;
+                    }
+                }
+                return o;
+            });
+            var ss = _.filter(sneakers,function(item){
+                return item.name=="[Nike] ";
+            });
+            console.log(ss);
+        });
+    }
+
     // 대표사이트 데이터 넣기
     function callSiteFormBox(no,name,NOs){
         console.log(NOs);
@@ -38,8 +199,8 @@
                 dataType: "xml",
                 type: 'GET',
                 success: function(res) {
-
-                    if((no_hook+2000) < NO){
+                    if(31079207 < NO){
+                    // if((no_hook+2000) < NO){
                         $("#result").append("<span>끝</span><br />");
                         return;
                     }
@@ -73,14 +234,14 @@
     // NK31058563
 
 
-    var no_hook = 31080377;
+    var no_hook = 31079198;
     function loop(){
         used = true;
         call(no_hook);
     };
     function stop(){
         used = false;
-    }
+    }*/
 </script>
 </body>
 </html>

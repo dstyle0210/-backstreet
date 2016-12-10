@@ -9,7 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.min.js"></script>
 </head>
 <body>
-<button onclick="loadKoreaLaunch(0);">시작</button>
+<button onclick="loadKoreaLaunch(55);">시작</button>
 <button onclick="ingNull();">중지</button>
 <ul id="luanch">
     <li v-for="item in luanchs">
@@ -26,7 +26,7 @@ var ing = true;
 function ingNull(){ing = false;}
 var errorCount = false;
 var eng = ["A","B","C","D","E"];
-var engIdx = 0;
+var engIdx = 1;
 var callNum = 0;
 var launch = "http://www.nike.co.kr/display/displayShop.lecs?displayNo=NK1A40";
 var url = "";
@@ -36,7 +36,7 @@ function loadKoreaLaunch(num){
     engIdx = (100==num) ? engIdx+1 : engIdx;
     num = (100==num) ? 0 : num;
     var textNum = (num<10) ? "0"+num : ""+num;
-    if(engIdx==1 && num==56) return;
+    if(engIdx==1 && num==65) return;
     if((eng[engIdx]==undefined)) return;
 
     url = launch+eng[engIdx]+textNum;
