@@ -1,0 +1,26 @@
+{
+  "name": "-backstreet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dstyle0210/-backstreet.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dstyle0210/-backstreet/issues"
+  },
+  "homepage": "https://github.com/dstyle0210/-backstreet#readme",
+  "devDependencies": {
+    "cheerio": "^0.22.0",
+    "open": "0.0.5",
+    "request": "^2.79.0",
+    "underscore": "^1.8.3",
+    "underscore.string": "^3.3.4"
+  }
+}
