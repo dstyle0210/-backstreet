@@ -5,6 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <title>Document</title>
 </head>
 <body>
@@ -13,6 +14,7 @@
 장소 : <input type="text" name="" id="lod">
 
 <script>
+    $(function(){
     // 네이버 API 예제 - 캘린더 일정 추가하기
     var token = sessionStorage.getItem("ntoken");
     var header = "Bearer " + token; // Bearer 다음에 공백 추가
@@ -71,7 +73,7 @@
             }
         }
     });
-
+    })
 </script>
 </body>
 </html>
